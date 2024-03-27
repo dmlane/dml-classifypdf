@@ -1,15 +1,20 @@
 """ Main entry point for classifypdf """
+
 import argparse
-from importlib.metadata import version
 import sys
+from importlib.metadata import version
+from tkinter import Tk
 
 from classifypdf._util import MyException, RawFormatter
+from classifypdf.pdf_viewer import PdfViewer
+
 
 class Classifypdf:
-    """ Main class """
+    """Main class"""
+
     parser = None
-    version=None
-    verbose=False
+    version = None
+    verbose = False
 
     def __init__(self):
         pass
@@ -34,17 +39,22 @@ class Classifypdf:
             default=False,
             help="Verbose output",
         )
- 
+
     def parse_args(self):
         """Parse the command line arguments"""
         args = self.parser.parse_args()
 
         self.verbose = args.verbose
- 
+
     def run(self):
-        """ Main entry point """
+        """Main entry point"""
         self.make_cmd_line_parser()
         self.parse_args()
+        root=Tk()
+        PdfViewer(root)
+        root.mainloop()
+
+
 
 def main():
     """Main entry point"""
@@ -53,6 +63,7 @@ def main():
     except MyException as e:
         print(e.msg)
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
