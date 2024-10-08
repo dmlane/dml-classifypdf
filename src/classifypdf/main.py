@@ -3,10 +3,11 @@
 import argparse
 import sys
 from importlib.metadata import version
-from tkinter import Tk
+
+from PyQt6.QtWidgets import QApplication
 
 from classifypdf._util import MyException, RawFormatter
-from classifypdf.pdf_viewer import PdfViewer
+from classifypdf.pdfviewer import Pdfviewer
 
 
 class Classifypdf:
@@ -50,10 +51,10 @@ class Classifypdf:
         """Main entry point"""
         self.make_cmd_line_parser()
         self.parse_args()
-        root=Tk()
-        PdfViewer(root)
-        root.mainloop()
-
+        app = QApplication(sys.argv)
+        window = Pdfviewer()
+        window.show()
+        app.exec()
 
 
 def main():
